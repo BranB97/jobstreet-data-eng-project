@@ -9,3 +9,32 @@ In this project, I developed an end-to-end data pipeline to process and load dat
 * Visualize the data by creating a dashboard which connects to the database in BigQuery.
 
 The following sections will elaborate upon the details on the tools and processes involved to create this pipeline.
+
+## Table of Contents
+1. [Dataset Used](https://github.com/BranB97/jobstreet-data-eng-project/edit/main/README.md#dataset-used)
+2. 
+
+## Dataset Used
+The dataset used for this project are publicly accessible job listings scraped from Jobstreet. This is achieved by developing a script to scrape the job listings based on the keyword specified in a standard parameter file.
+
+More info about the dataset and web scraping scripts can be found in the following links:
+* Website:
+* Data Dictionary:
+* Raw Data:
+* Web Scraping Scripts:
+
+## Tools Used
+* Language: Python, SQL
+* Storage: Google Cloud Storage
+* Data Warehouse: Google BigQuery
+* Workflow Orchestration: Apache Airflow
+* Visualisation: Looker Studio
+* Libraries: Pandas, Selenium
+
+## Data Pipeline Architecture
+![Jobstreet_de_architecture drawio(2)](https://github.com/user-attachments/assets/b18cfc03-4348-49f1-8a26-b2acc9f59d71)
+
+A walkthrough of the pipeline:
+1. The ETL process is orchestrated via Airflow - 
+2. The cleaned data is loaded into the BigQuery data warehouse -
+3. Analytics are performed 
