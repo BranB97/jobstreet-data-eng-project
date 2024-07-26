@@ -11,8 +11,10 @@ In this project, I developed an end-to-end data pipeline to process and load dat
 The following sections will elaborate upon the details on the tools and processes involved to create this pipeline.
 
 ## Table of Contents
-1. [Dataset Used](https://github.com/BranB97/jobstreet-data-eng-project?tab=readme-ov-file#dataset-used)
-2. 
+1. [Dataset Used](#dataset-used)
+2. [Tools Used](#tools-used)
+3. [Data Pipeline Architecture](#data-pipeline-architecture)
+4. [Infrastructure Setup](#infrastructure-setup)
 
 ## Dataset Used
 The dataset used for this project are publicly accessible job listings scraped from Jobstreet. This is achieved by developing a script to scrape the job listings based on the keyword specified in a standard parameter file.
@@ -40,6 +42,8 @@ A walkthrough of the pipeline:
 3. Data is visualized to facilitate analytics -
 
 ## Infrastructure Setup
+### Install Windows Subsystem for Linux (WSL)
+
 ### Install Airflow
 
 
