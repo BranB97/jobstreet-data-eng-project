@@ -11,7 +11,7 @@ In this project, I developed an end-to-end data pipeline to process and load dat
 The following sections will elaborate upon the details on the tools and processes involved to create this pipeline.
 
 ## Table of Contents
-1. [Dataset Used](https://github.com/BranB97/jobstreet-data-eng-project/edit/main/README.md#dataset-used)
+1. [Dataset Used](https://github.com/BranB97/jobstreet-data-eng-project?tab=readme-ov-file#dataset-used)
 2. 
 
 ## Dataset Used
@@ -37,4 +37,9 @@ More info about the dataset and web scraping scripts can be found in the followi
 A walkthrough of the pipeline:
 1. The ETL process is orchestrated via Airflow - 
 2. The cleaned data is loaded into the BigQuery data warehouse -
-3. Analytics are performed 
+3. Data is visualized to facilitate analytics -
+
+## Infrastructure Setup
+### Install Airflow
+
+
