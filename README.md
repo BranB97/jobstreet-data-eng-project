@@ -39,7 +39,7 @@ More info about the dataset and web scraping scripts can be found in the followi
 
 A walkthrough of the pipeline:
 1. The ETL process is orchestrated via Airflow - [dag_jobstreet_etl.py](https://github.com/BranB97/jobstreet-data-eng-project/blob/main/dags/dag_jobstreet_etl.py)
-2. The cleaned data is loaded into the BigQuery data warehouse - [dag_jobstreet_etl.py](https://github.com/BranB97/jobstreet-data-eng-project/blob/main/sql/create_dwh_tbls.sql)
+2. The cleaned data is loaded into the BigQuery data warehouse - [create_dwh_tbls.sql](https://github.com/BranB97/jobstreet-data-eng-project/blob/main/sql/create_dwh_tbls.sql)
 3. Data from BigQuery is visualized via Looker Studio to facilitate analytics -
 
 ## Data Modeling
