@@ -16,6 +16,8 @@ The following sections will elaborate upon the details on the tools and processe
 3. [Data Pipeline Architecture](#data-pipeline-architecture)
 4. [Data Modeling](#data-modeling)
 5. [Infrastructure Setup](#infrastructure-setup)
+6. [ETL Process](#etl-process)
+7. [Dashboard](#dashboard)
 
 ## Dataset Used
 The dataset used for this project are publicly accessible job listings scraped from Jobstreet. This is achieved by developing a script to scrape the job listings based on the keyword specified in a standard parameter file.
@@ -158,7 +160,7 @@ The process ends with the `load_fact_dim` task which will generate the fact and 
 ![bigquery loaded tables](https://github.com/user-attachments/assets/db249f9c-d820-4f99-adc0-6dfbffa20626)
 
 ## Dashboard
-Once the data warehouse is established, a dashboard is created via Looker Studio and connected to a customized dataset for visualization. You can view the dashboard [here](https://lookerstudio.google.com/reporting/2d07c793-705b-46a2-87a7-d62ded2b842a).
+Once the data warehouse is established, a dashboard is created via Looker Studio and connected to a customized [dataset](https://github.com/BranB97/jobstreet-data-eng-project/blob/main/sql/create_analysis_tbl.sql) for visualization. You can view the dashboard [here](https://lookerstudio.google.com/reporting/2d07c793-705b-46a2-87a7-d62ded2b842a).
 
 ![dashboard1](https://github.com/user-attachments/assets/13859ccd-1cb1-48ed-8e59-9befa5b3379b)
 ![dashboard2](https://github.com/user-attachments/assets/0bedcc05-3b5d-4cde-b011-a69fae125013)
