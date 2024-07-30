@@ -6,7 +6,7 @@ In this project, I developed an end-to-end data pipeline to process and load dat
 * Load the data into Google Cloud Storage for further processing.
 * Save the data into BigQuery and organize it using the Star Schema modeling approach.
 * Orchestrate the data pipeline.
-* Visualize the data by creating a dashboard which connects to the database in BigQuery.
+* Visualize the data by creating an interactable dashboard which connects to the database in BigQuery.
 
 The following sections will elaborate upon the details on the tools and processes involved to create this pipeline.
 
@@ -40,7 +40,7 @@ More info about the dataset and web scraping scripts can be found in the followi
 A walkthrough of the pipeline:
 1. The ETL process is orchestrated via Airflow - [dag_jobstreet_etl.py](https://github.com/BranB97/jobstreet-data-eng-project/blob/main/dags/dag_jobstreet_etl.py)
 2. The cleaned data is loaded into the BigQuery data warehouse - [create_dwh_tbls.sql](https://github.com/BranB97/jobstreet-data-eng-project/blob/main/sql/create_dwh_tbls.sql)
-3. Data from BigQuery is visualized via Looker Studio to facilitate analytics -
+3. Data from BigQuery is visualized via Looker Studio to facilitate analytics - [Jobstreet_Dashboard.pdf](https://github.com/BranB97/jobstreet-data-eng-project/blob/main/Jobstreet_Dashboard.pdf)
 
 ## Data Modeling
 The data warehouse is designed using the Star Schema modeling approach (fact and dim tables).
@@ -50,7 +50,7 @@ The data warehouse is designed using the Star Schema modeling approach (fact and
 
 ## Infrastructure Setup
 ### Install Windows Subsystem for Linux (WSL)
-1. Open PowerShell or Windows Command Prompt in administrator mode by right-clicking and selecting "Run as administrator" and then enter the wsl --install command.
+1. Open PowerShell or Windows Command Prompt in administrator mode by right-clicking and selecting "Run as administrator" and then enter the `wsl --install command`.
     ```powershell
      wsl --install
     ``` 
@@ -101,6 +101,66 @@ The data warehouse is designed using the Star Schema modeling approach (fact and
    ![start airflow scheduler](https://github.com/user-attachments/assets/5de0ff43-0d53-4042-ac35-83ae957e028a)
 
 7. Access the Airflow UI by visiting `http://localhost:8080/home` in your web browser. Use the account username and password that was created previously to login.
+8. Alternatively, you can run [install.sh](https://github.com/BranB97/jobstreet-data-eng-project/blob/main/install.sh) to streamline the installation process.
 
-### Create Google Cloud Project
+### Setup Google Cloud Infrastructure
+1. Open [Google Cloud](https://github.com/BranB97/jobstreet-data-eng-project/blob/main/install.sh) and create a new project.
+2. Go [here](https://console.cloud.google.com/apis/library/browse) and activate the following APIs:
+   * BigQuery API
+   * Cloud Storage API
+3. Go to BigQuery Studio and create your dataset.
+4. Go to Cloud Storage and create your bucket.
+5. Create a [Service Account](https://github.com/BranB97/jobstreet-data-eng-project/blob/main/install.sh) with the following roles:
+   * `BigQuery Admin`
+   * `Storage Admin`
+6. Download the service account credentials and store the json file in the `AIRFLOW_HOME` directory. This will be used by Airflow to connect to GCP.
 
+### Setup Airflow Connection
+1. Open `http://localhost:8080/connection/list/` and add a connection.
+2. Enter the following fields and then save the connection:
+   * `Connection Id` - Your connection name
+   * `Connection Type` -  Google Cloud
+   * `Description` - Describe what your connection does
+   * `Project Id` - Your GCP project ID
+   * `Keyfile Path` - The path to your service account json key
+   * `Scopes (comma separated)` - https://www.googleapis.com/auth/cloud-platform
+   * `Number of Retries` - 2
+
+### Setup Airflow Global Variables
+1. Open `http://localhost:8080/variable/list/` and add the following variables:
+   * `BASE_PATH` - `AIRFLOW_HOME` directory
+   * `BUCKET_NAME` - The name of the bucket you created in GCS
+   * `DATASET_ID` - The name of the dataset you created in BigQuery
+   * `GOOGLE_CLOUD_CONN_ID` - The name of the Airflow connection you created to interface with GCP
+
+
+## ETL Process
+This section will breakdown the ETL workflow orchestration process. Each of the process is divided by their individual DAG tasks
+
+![DAG ETL PIPELINE AIRFLOW](https://github.com/user-attachments/assets/a21e2911-51c6-4bc7-9ba1-f07bfb818f4f)
+
+### Extract and Transform
+In the `transformer` task, the job listing data is extracted from the raw CSV file that is placed inside the `DATA_PATH` which is the subdirectory of the `AIRFLOW_HOME` directory. Once the raw data is extracted, data cleaning and transformation is carried out prior to loading the data into GCS.
+
+Here is the specific cleaning/transformation task that is involved:
+* Replace certain sentences with more generic terms. e.g.  If the salary range of a certain record does not indicate salary info, it will replace with `No Info for Salary` instead.
+* Split string and string-to-integer data type conversion. e.g. Salary range indicates `RM 7,000 - RM 10,000 per month`, the numbers will be split from the string and stored into min and maximum salary columns respectively.
+
+### Load
+In the `staging_in_gcs` task, the file containing the cleaned dataset is transferred and stored in GCS, specifically the bucket that was created previously.
+
+![staging](https://github.com/user-attachments/assets/a03f9cf8-667a-4cd8-8357-9895b34170c6)
+
+After that, the `load_in_dwh` task will begin and the cleaned data will be loaded into a staging table in BigQuery.
+
+The process ends with the `load_fact_dim` task which will generate the fact and dim tables from the staging table.
+
+![bigquery loaded tables](https://github.com/user-attachments/assets/db249f9c-d820-4f99-adc0-6dfbffa20626)
+
+## Dashboard
+Once the data warehouse is established, a dashboard is created via Looker Studio and connected to a customized dataset for visualization. You can view the dashboard [here](https://lookerstudio.google.com/reporting/2d07c793-705b-46a2-87a7-d62ded2b842a).
+
+![dashboard1](https://github.com/user-attachments/assets/13859ccd-1cb1-48ed-8e59-9befa5b3379b)
+![dashboard2](https://github.com/user-attachments/assets/0bedcc05-3b5d-4cde-b011-a69fae125013)
+![dashboard3](https://github.com/user-attachments/assets/ef7035eb-ca97-4322-9757-28db8f653457)
+![dashboard4](https://github.com/user-attachments/assets/e530fdeb-4c94-4743-91e0-230a86ed4639)
