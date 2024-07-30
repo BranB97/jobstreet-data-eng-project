@@ -24,8 +24,8 @@ The dataset used for this project are publicly accessible job listings scraped f
 
 More info about the dataset and web scraping scripts can be found in the following links:
 * Website: https://www.jobstreet.com.my/
-* Data Dictionary:
-* Raw Data: [jobstreet_jobs.csv](https://github.com/BranB97/jobstreet-data-eng-project/blob/main/data/jobstreet_jobs.csv)
+* Data Dictionary: [jobstreet_jobs.csv](https://github.com/BranB97/jobstreet-data-eng-project/blob/main/data/jobstreet_jobs.csv)
+* Raw Data: [jobstreet_datadict.csv](https://github.com/BranB97/jobstreet-data-eng-project/blob/main/jobstreet_datadict.csv)
 * Web Scraping Scripts: [scrape_jobstreet.py](https://github.com/BranB97/jobstreet-data-eng-project/blob/main/job-scraper/scrape_jobstreet.py)
 
 ## Tools Used
@@ -57,7 +57,7 @@ The data warehouse is designed using the Star Schema modeling approach (fact and
      wsl --install
     ``` 
 2. Once installation is complete, restart your machine.
-3. After restart, the WSL can be opened by running Ubuntu. (Note: Ubuntu is installed as the default Linux distribution. If you want to change the disto, please refer [here](https://learn.microsoft.com/en-us/windows/wsl/basic-commands#install) )
+3. After restart, the WSL can be opened by running Ubuntu. (Note: Ubuntu is installed as the default Linux distribution. If you want to change the distro, please refer [here](https://learn.microsoft.com/en-us/windows/wsl/basic-commands#install) )
 
    ![image](https://github.com/user-attachments/assets/2a69c2c6-f683-4db2-a330-04415d96747d)
 
@@ -137,7 +137,7 @@ The data warehouse is designed using the Star Schema modeling approach (fact and
 
 
 ## ETL Process
-This section will breakdown the ETL workflow orchestration process. Each of the process is divided by their individual DAG tasks
+This section will breakdown the ETL workflow orchestration process. Each of the process is divided by their individual DAG tasks.
 
 ![DAG ETL PIPELINE AIRFLOW](https://github.com/user-attachments/assets/a21e2911-51c6-4bc7-9ba1-f07bfb818f4f)
 
