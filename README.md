@@ -63,6 +63,19 @@ The data warehouse is designed using the Star Schema modeling approach (fact and
 
    ![image](https://github.com/user-attachments/assets/5cd59236-42e9-4f54-834f-1e04f1ad4819)
 
+### Install Python
+1. Open WSL and update the local package repositories.
+   ```shell
+    sudo apt update
+   ```
+2. Run the below command to install Python with Pandas library.
+   ```shell
+    sudo apt-get install python3-pandas
+   ```
+3. Verify if its successful by running the below command.
+   ```shell
+    python3 --version
+   ```
 
 ### Install Airflow
 1. Open WSL and install `apache-airflow` via pip with constraints that is compatible with `AIRFLOW_VERSION` and `PYTHON_VERSION` to ensure no incompatibility errors arise.
@@ -112,7 +125,7 @@ The data warehouse is designed using the Star Schema modeling approach (fact and
    * Cloud Storage API
 3. Go to BigQuery Studio and create your dataset.
 4. Go to Cloud Storage and create your bucket.
-5. Create a [Service Account](https://github.com/BranB97/jobstreet-data-eng-project/blob/main/install.sh) with the following roles:
+5. Create a [Service Account](https://cloud.google.com/iam/docs/service-account-overview) with the following roles:
    * `BigQuery Admin`
    * `Storage Admin`
 6. Download the service account credentials and store the json file in the `AIRFLOW_HOME` directory. This will be used by Airflow to connect to GCP.
